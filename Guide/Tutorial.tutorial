@@ -1,0 +1,147 @@
+@GuideBook(title: "ChatBot", icon: title.png, background: titleBackground.png, firstFile: ContentView.swift) {
+    @WelcomeMessage(title: "ChatBot") {
+        Make an old school chatbot messaging app.
+    }
+    @Guide {
+        @Step(title: "ChatBot") {
+            @ContentAndMedia {
+                ![](phone.png)
+                Welcome to the ChatBot App!
+                
+                In this project you will learn to make a simple chatbot.
+                
+                What is a ChatBot?  
+                
+                A chatbot is a computer program that simulates human conversation to offer a better user experience for customers.  Our chatbot will operate based off of predefined prompts.  It will check to see if the user's message contains any specific keywords it can respond to. Otherwise, it will respond with a default message.  This kind of chatbot is called a rule-based chatbot. It is only as smart as you make it, and usually isn't very conversational.
+                
+                Some chatbots integrate artificial intelligence like ChatGBT, which will make the responses more advanced and conversational.  If you are curious, you can look up video tutorials of SwiftUI ChatBot apps that integrate ChatGBT.
+                
+                @GuideButton(type: walkthrough, title: "Start Walkthrough", description: "button description")
+            }
+            @TaskGroup(title: "Getting Started") {
+                @Task(type: walkthrough, title: "VStack", id: "vstack", file: ContentView.swift) {
+                    Start with an empty VStack
+                    @Page(id: "delete", title: "") {
+                    Before you get started, DELETE the Image and Text in the VStack of the ContentView.
+                    }
+                    @Page(id: "start", title: "")  {
+                        This is where you will add the code needed for messaging in your app.
+                    }
+                }
+            }
+            @TaskGroup(title: "ContentView") {
+                @Task(type: experiment, title: "", id: "titletext", file: ContentView.swift) {
+                    Set up the view
+                    @Page(id: "contents", title: "", isAddable: false) {
+                        The ChatBot app needs a title at the top, a [scroll view](doc://com.apple.documentation/documentation/swiftui/scrollview) for messages in the middle, and a [text field](doc://com.apple.documentation/documentation/swiftui/textfield) to enter messages at the bottom.  Use the existing VStack to add these items vertically in the view.
+                    }
+                    @Page(id: "titleStack", title: "", isAddable: true) {
+                        Add an HStack inside of the VStack so you can put a title at the top with an image next to it.
+                        ```
+                        HStack {
+                        //#-learning-code-snippet(title)
+                        //#-learning-code-snippet(titleImage)
+                        }
+                        ```
+                    }
+                    @Page(id: "title", title: "", isAddable: true) {
+                        Add the title "ChatBot" inside of the HStack.  Make the font bold with a large title.
+                        ```
+                        Text("ChatBot")
+                            .font(.largeTitle)
+                            .bold()
+                        ```
+                    }
+                    @Page(id: "titleImage", title: "", isAddable: true) {
+                        Beneath the title, add a system image called "desktopcomputer" with a font size modifier set to 30.
+                        ```
+                        Image(systemName: "desktopcomputer")
+                            .font(.system(size: 30))
+                        ```
+                    }
+                    @Page(id: "symbols", title: "", isAddable: false) {
+                        The system symbol "desktopcomputer" came from a built in collection of symbols called SFSymbols. You can view all of the available symbols on your iPhone, iPad, or Mac using the SFSymbols app.
+                    }
+                }
+            
+                @Task(type: experiment, title: "", id: "", file: ContentView.swift) {
+                    Text Field
+                    @Page(id: "textfield", title: "", isAddable: true) {
+                       Beneath the HStack containing the title, add a new HStack that contains a text field with an image beside it called "paperplane".  You will see an error until you finish adding the arguments for the [TextField](doc://com.apple.documentation/documentation/swiftui/textfield).
+                        ```
+                        HStack {
+                            TextField()//#-learning-code-snippet(arguments)
+                                //#-learning-code-snippet(tfPadding)
+                                //#-learning-code-snippet(tfBackground)
+                                //#-learning-code-snippet(corner)
+                            Image(systemName: "paperplane")
+                            //#-learning-code-snippet(imageModifiers)
+                            //#-learning-code-snippet(onTapGesture)
+                        }
+                        ```
+                    }
+                    @Page(id: "arguments", title: "", isAddable: true) {
+                        The first thing the text field needs is a string for the placeholder text. The second thing the text field needs is a binding between the text field and an @State variable that stores the message. You can recognize the binding variable because it is preceeded by a $ symbol.  There will still be an error message until you add the @State variable in the next step.
+                        ```
+                        TextField("Type a message for the ChatBot", text: $message)
+                        ```
+                    }
+                    @Page(id: "messageVar", title: "", isAddable: true) {
+                        Add the @State variable called message to the top of the ContentView.
+                        ```
+                        @State private var message = ""
+                        ```
+                    }
+                    @Page(id: "tfBackground", title: "", isAddable: true) {
+                        Great!  Now that you can see a text field with a paper plane image beside it, let's add modifiers to make it look better. The text field background is hard to see, so let's start by adding a background color to the text field.  
+                        ```
+                        .background(Color.gray.opacity(0.1))
+                        ```
+                    }
+                    @Page(id: "opacity", title: "", isAddable: false) {
+                        The opacity modifier adjusts the transparency of the color. You can experiment with the color and transparency of the text field background if you like.  
+                    }
+                    @Page(id: "tfPadding", title: "", isAddable: true) {
+                        Notice that the text is touching the edges of the text field box?  Adding a padding modifier will solve this problem.  But remember that modifier placement matters.  The padding will need to go above the background color.
+                        ```
+                        .padding()
+                        ```
+                    }
+                    @Page(id: "vStackPadding", title: "", isAddable: true) {
+                        The edges of the text field and image are touching the edges of the screen.  Fix this by adding padding to the VStack.
+                        ```
+                        .padding()
+                        ```
+                    }
+                    @Page(id: "corner", title: "", isAddable: true) {
+                        Use the cornerRadius modifier to round the edges of the text field.
+                        ```
+                        .cornerRadius(10)
+                        ```
+                    }
+                }
+                @Task(type: experiment, title: "Send the Message", id: "plane", file: ContentView.swift) {
+                    Send the message
+                    @Page(id: "imageModifiers", title: "", isAddable: true) {
+                        Add modifiers to the image to change its size and color.
+                        ```
+                        .font(.system(size: 30))
+                        .foregroundColor(.blue)
+                        ```
+                    }
+                    @Page(id: "onTapGesture", title: "", isAddable: true) {
+                        To make the image work like a button all you need to do is add a tap gesture. Remember when you added the binding $message when you created the [text field](doc://com.apple.documentation/documentation/swiftui/textfield)?  The @State variable message will store the value that is entered by the user. A print statement let you test it out.  Type into the text field and tap the airplane to sumbit the message.
+                        ```
+                        .onTapGesture {
+                        print(message)
+                        }
+                        ```
+                    }
+                }
+            }
+            @SuccessMessage(message: "") {
+                Great job setting up the content view!
+            }
+        }
+    }
+}
